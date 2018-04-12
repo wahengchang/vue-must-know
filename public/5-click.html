@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+
+<body>    
+    
+    <h1>This is a Heading</h1>
+    <div id="app">
+        <p>{{ message }}</p>
+        <button v-on:click="handleClick"> update </button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const message1 = 'Peter is great'
+        const message2 = 'Greater than Peter'
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: message1
+            },
+            methods: {
+                handleClick: function () {
+                    this.message = (this.message === message1) ? message2 : message1
+                }
+            }
+        })
+    </script>
+</body>
+</html>
