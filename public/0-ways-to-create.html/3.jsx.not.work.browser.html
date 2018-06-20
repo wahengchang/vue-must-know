@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+
+<body>    
+    
+    <h1>This is a Heading</h1>
+    <div id="app">
+        <click-me></click-me>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        Vue.component('click-me', {
+            data() {
+                return {
+                    checked: false,
+                    title: 'Check me'
+                }
+            },
+            methods: {
+                check() {
+                    this.title = 'it is clicked';
+                }
+            },                
+            render() {
+                return <div class="checkbox-wrapper" onClick={ this.check }>
+                            <div class={{ checkbox: true, checked: this.checked }}></div>
+                            <div class="title">{ this.title }</div>
+                        </div>
+            }
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+
+    </script>
+</body>
+</html>

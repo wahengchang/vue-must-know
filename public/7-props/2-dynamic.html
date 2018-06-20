@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+
+<body>    
+    
+    <h1>This is a Heading</h1>
+    <div id="app">
+        <blog-post />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const PostTitle = Vue.extend({
+            // camelCase in JavaScript
+            props: ['title'],
+            template: '<h3>{{ title }}</h3>'
+        })
+
+        Vue.component('blog-post', {
+            components: {'post-title': PostTitle},
+            template: `<div>
+                            <post-title v-bind:title="title"/>
+                            <p> {{content}} </p>
+                        </div>`,
+            data() {
+                return {
+                    title: 'subsubtitle',
+                    content: 'I am content',
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+
+    </script>
+
+<h4>Reference</h4>
+<a href="https://vuejs.org/v2/guide/components-props.html">https://vuejs.org/v2/guide/components-props.html</a>
+
+</body>
+</html>
