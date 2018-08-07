@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <style>
+        .slot-container{
+            width: 300px;
+            border: 3px solid;
+        }
+        .slot-content {
+            background: lightblue;
+            margin: 2px 5px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>    
+    <h1>This is a Heading</h1>
+    <div id="app">
+        <slot-container v-bind:todos="todos">
+            <div slot-scope="slotProps">
+                <div class="slot-content">{{slotProps.todo.content}}</div>
+            </div>
+        </slot-container>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        Vue.component('slot-container', {
+            // camelCase in JavaScript
+            props: ['url'],
+            template: `<div class="slot-container">
+                        <div v-for="todo in todos" v-bind:key="todo.id">
+                            id: {{todo.id}}
+                            <slot v-bind:todo="todo">
+                            </slot>
+                        </div>
+                    </div>`,
+            data() {
+                return {
+                    todos: [
+                        {id: 1, content: 'I am number 1'},
+                        {id: 2, content: 'nothing to say'}
+                    ],
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app'
+        })
+
+    </script>
+
+</body>
+</html>

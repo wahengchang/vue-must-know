@@ -21,6 +21,7 @@ app.get('/', (req, res)=>{
     returnString += '</url>'
 
     return returnString
+
   }
   res.send(partial(filesInPublic))
 })
