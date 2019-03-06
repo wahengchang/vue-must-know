@@ -1,0 +1,98 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <style>
+        main{
+            background: #ffddee;
+            padding: 5px 10px;
+            margin: 10px 0;
+        }
+
+        .row {
+            border-bottom: black 1px solid;
+            padding: 5px 2px;
+        }
+        .row button {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>    
+    <div id="app">
+         <base-layout>
+            <template slot='row' slot-scope='{list, handleRemove}'>
+                <sub-compo
+                    v-for='(item, index) in list'
+                    v-bind='item'
+                    @handleRemove='handleRemove'
+                    :key='index'
+                />
+            </template>
+        </base-layout>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        const SubCompo = Vue.component('SubCompo', {
+            // event : handleremove
+            props: ['title', 'id'],
+            template: `<div class="row">
+                            <span> {{title}}</span> <button @click='removeItem(id)'> - </button>
+                        </div>`,
+            data: function(){
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                removeItem: function(id){
+                    return this.$emit('handleremove', id)
+                }
+            }
+        })
+        const BaseLayout = Vue.component('base-layout', {
+            props: [],
+            template: `<div class="container">
+                            <button @click='handleAdd'> Parent + </button>
+                            <main >
+                                <slot name="row" :list='list' :handleRemove='handleRemove'/>
+                            </main>
+                        </div>`,
+            data: function(){
+                return {
+                    list: [
+                        {title: 'item 1', id: 1},
+                        {title: 'item 2', id: 2}
+                    ]
+                }
+            },
+            methods: {
+                handleAdd: function(){
+                    const id = new Date().getTime()
+                    const title = `item ${id}`
+                    this.list.push({title, id})
+                },
+                handleRemove: function(targetId){
+                    this.list = this.list.filter( ({id})=> id!==targetId)
+                }
+            }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            component: {SubCompo, BaseLayout}
+        })
+
+    </script>
+
+</body>
+</html>
